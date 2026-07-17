@@ -8,17 +8,30 @@ export type AutoMapper<Domain, Db> = {
 export class EntityMapping<Domain, Db> {
   toDomain!: (row: Db) => Domain;
   toDb!: (domain: Domain) => Db;
+  private typeHints = new Map<keyof Db, string>();
 
   autoMap(domainClass: Constructor<Domain>, dbFields: (keyof Db)[]) {
     this.toDomain = (row: Db) => {
-      const values = dbFields.map((field) => (row as any)[field]);
+      const values = dbFields.map((field) => {
+        const value = (row as any)[field];
+        const hint = this.typeHints.get(field);
+
+        if (hint === 'number' && value !== null && value !== undefined) {
+          const numericValue = typeof value === 'number' ? value : Number(value);
+          return Number.isNaN(numericValue) ? value : numericValue;
+        }
+
+        return value;
+      });
       return new domainClass(...values);
     };
 
     this.toDb = (domain: Domain) => {
       const obj = {} as Db;
       for (const field of dbFields) {
-        (obj as any)[field] = (domain as any)[field];
+        const value = (domain as any)[field];
+        this.typeHints.set(field, typeof value);
+        (obj as any)[field] = value;
       }
       return obj;
     };

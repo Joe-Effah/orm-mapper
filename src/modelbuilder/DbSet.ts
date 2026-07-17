@@ -6,6 +6,7 @@ export class DbSet<TDomain, TDb> {
   private added: TDomain[] = [];
   private updated: TDomain[] = [];
   private removed: TDomain[] = [];
+  private trackedEntities: TDomain[] = [];
 
   constructor(
     private readonly domainClass: new (...args: any[]) => TDomain,
@@ -16,10 +17,14 @@ export class DbSet<TDomain, TDb> {
   //Works
   add(entity: TDomain) {
     this.added.push(entity);
+    this.trackEntity(entity);
   }
 
   update(entity: TDomain) {
-    this.updated.push(entity);
+    if (!this.updated.includes(entity)) {
+      this.updated.push(entity);
+    }
+    this.trackEntity(entity);
   }
 
   //Works
@@ -27,18 +32,32 @@ export class DbSet<TDomain, TDb> {
     this.removed.push(entity);
   }
 
-//Works
-    async findById(id: string): Promise<TDomain | undefined> {
+private trackEntity(entity: TDomain) {
+    if (!this.trackedEntities.includes(entity)) {
+      this.trackedEntities.push(entity);
+    }
+  }
+
+  //Works
+    async findById(id: string | number): Promise<TDomain | undefined> {
         const mapper = modelBuilder.getMapping<TDomain>(this.domainClass);
         const row = await this.db.select().from(this.table).where(eq(this.table.id, id)).limit(1).execute();
-        return row.length > 0 ? mapper.toDomain(row[0]) : undefined;
+        if (row.length === 0) {
+          return undefined;
+        }
+
+        const entity = mapper.toDomain(row[0]);
+        this.trackEntity(entity);
+        return entity;
     }
     
 //Works
   async toArray(): Promise<TDomain[]> {
     const mapper = modelBuilder.getMapping<TDomain>(this.domainClass);
     const rows = await this.db.select().from(this.table);
-    return rows.map(mapper.toDomain);
+    const entities = rows.map(mapper.toDomain);
+    entities.forEach((entity) => this.trackEntity(entity));
+    return entities;
   }
 
   async find(predicate: (entity: TDomain) => boolean): Promise<TDomain[]> {
@@ -55,7 +74,14 @@ export class DbSet<TDomain, TDb> {
       await this.db.insert(this.table).values(dbObj);
     }
 
-    for (const entity of this.updated) {
+    const entitiesToUpdate = [...this.updated];
+    for (const entity of this.trackedEntities) {
+      if (!this.added.includes(entity) && !this.removed.includes(entity) && !entitiesToUpdate.includes(entity)) {
+        entitiesToUpdate.push(entity);
+      }
+    }
+
+    for (const entity of entitiesToUpdate) {
       const dbObj = mapper.toDb(entity);
       await this.db
         .update(this.table)
@@ -73,5 +99,6 @@ export class DbSet<TDomain, TDb> {
     this.added = [];
     this.updated = [];
     this.removed = [];
+    this.trackedEntities = [];
   }
 }
