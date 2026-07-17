@@ -4,7 +4,6 @@ import { complexUsers } from "../../test/Abstractions/Mocks/ComplexUserTable";
 import { ComplexUser } from "../Model/ComplexUser";
 import { DbSet } from "../../src/DbSet";
 import { modelBuilder } from "../../src/modelbuilder";
-import type { SQLiteTableWithColumns } from 'drizzle-orm/sqlite-core';
 
 function ensureComplexUsersTable() {
   const sqlite = new Database('./mydb.sqlite');
@@ -16,6 +15,7 @@ function ensureComplexUsersTable() {
       profile_age TEXT
     )
   `);
+  sqlite.run('DELETE FROM complex_users');
 }
 
 export class ConfiguredComplexDbContext {

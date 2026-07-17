@@ -2,7 +2,6 @@ import { getDrizzleDb } from "../drizzle/databaseConfiguration";
 import { users } from '../drizzle/users';
 import { User } from "../Model/User";
 import { DbSet } from "../../src/DbSet";
-
 import { modelBuilder } from "../../src/modelbuilder";
 
 
