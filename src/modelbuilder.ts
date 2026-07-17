@@ -16,6 +16,19 @@ class ModelBuilder {
     return mapping;
   }
 
+  configureEntity<Domain, Db>(
+    domainClass: Constructor<Domain>,
+    table: any,
+    mapper: {
+      toDomain: (row: Db) => Domain;
+      toDb: (domain: Domain) => Db;
+    }
+  ): EntityMapping<Domain, Db> {
+    const mapping = this.entity(domainClass, table);
+    mapping.withMapping(mapper);
+    return mapping;
+  }
+
   getMapping<T>(cls: Constructor<T>): AutoMapper<T, any> {
     return this.mappings.get(cls)!;
   }

@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
- import { modelBuilder } from './modelbuilder';
-import { users } from '../../sample/drizzle/users';
+ import { modelBuilder } from './modelbuilder/modelbuilder';
+import { users } from '../sample/drizzle/users';
 
 export class DbSet<TDomain, TDb> {
   private added: TDomain[] = [];

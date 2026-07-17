@@ -19,7 +19,9 @@ function ensureSchema(sqlite: Database) {
       id TEXT PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
       email TEXT NOT NULL,
-      role TEXT NOT NULL
+      role TEXT NOT NULL,
+      profile_name TEXT,
+      profile_age TEXT
     )
   `);
 

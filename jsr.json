@@ -1,0 +1,7 @@
+{
+  "name": "@effahjoe/orm-mapper",
+  "version": "0.1.0",
+  "license": "MIT",
+  "exports": "./index.ts",
+  "description": "ORM Mapper library for TypeScript",
+}
