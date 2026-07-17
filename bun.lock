@@ -4,6 +4,8 @@
     "": {
       "name": "orm-mapper",
       "dependencies": {
+        "@effahjoe/cqrs": "npm:@jsr/effahjoe__cqrs",
+        "@effahjoe/orm-mapper": "npm:@jsr/effahjoe__orm-mapper",
         "@libsql/client": "^0.15.10",
         "dotenv": "^17.2.1",
         "drizzle-orm": "^0.44.4",
@@ -20,6 +22,10 @@
   },
   "packages": {
     "@drizzle-team/brocli": ["@drizzle-team/brocli@0.10.2", "", {}, "sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w=="],
+
+    "@effahjoe/cqrs": ["@jsr/effahjoe__cqrs@0.1.1", "https://npm.jsr.io/~/11/@jsr/effahjoe__cqrs/0.1.1.tgz", { "dependencies": { "tslog": "^4.10.2" } }, "sha512-fceVKN7ot+EQX4EksP7Dq7mIIsFVFfqoTHaID7kIIKxUJSSBIMT9Y1n7yiSixJecgf7wYaf4H8kCpSUYTp0w9g=="],
+
+    "@effahjoe/orm-mapper": ["@jsr/effahjoe__orm-mapper@0.1.1", "https://npm.jsr.io/~/11/@jsr/effahjoe__orm-mapper/0.1.1.tgz", { "dependencies": { "drizzle-orm": "^0.44.4" } }, "sha512-DBOaXlcuRi117T7858M05dpiuC/6hQkd/tL9Y3xjnzuspR7/LDf1BhjhgJBpD4asZWrCA8j3vy5s/W/+QyGw2w=="],
 
     "@esbuild-kit/core-utils": ["@esbuild-kit/core-utils@3.3.2", "", { "dependencies": { "esbuild": "~0.18.20", "source-map-support": "^0.5.21" } }, "sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ=="],
 
@@ -162,6 +168,8 @@
     "source-map": ["source-map@0.6.1", "", {}, "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="],
 
     "source-map-support": ["source-map-support@0.5.21", "", { "dependencies": { "buffer-from": "^1.0.0", "source-map": "^0.6.0" } }, "sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w=="],
+
+    "tslog": ["tslog@4.11.0", "", {}, "sha512-gBe0FTKkRpOv3DenGipjQWQe073jNd1cOLj3nYfVM0/NP29sQzAIx6kfyfTTsQOiWMC+B+tSr289lNXtu7HCmQ=="],
 
     "tsx": ["tsx@4.20.3", "", { "dependencies": { "esbuild": "~0.25.0", "get-tsconfig": "^4.7.5" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "bin": { "tsx": "dist/cli.mjs" } }, "sha512-qjbnuR9Tr+FJOMBqJCW5ehvIo/buZq7vH7qD7JziU98h6l3qGy0a/yPFjwO+y0/T7GFpNgNAvEcPPVfyT8rrPQ=="],
 

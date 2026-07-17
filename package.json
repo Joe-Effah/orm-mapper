@@ -13,11 +13,13 @@
   "peerDependencies": {
     "typescript": "^5"
   },
-    "scripts": {
+  "scripts": {
     "test": "bun test",
     "start": "bun index.ts"
   },
   "dependencies": {
+    "@effahjoe/cqrs": "npm:@jsr/effahjoe__cqrs",
+    "@effahjoe/orm-mapper": "npm:@jsr/effahjoe__orm-mapper",
     "@libsql/client": "^0.15.10",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4"
