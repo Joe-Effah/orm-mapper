@@ -34,4 +34,4 @@ class ModelBuilder {
   }
 }
 
-export const modelBuilder = new ModelBuilder();
+export const modelBuilder:ModelBuilder = new ModelBuilder();
